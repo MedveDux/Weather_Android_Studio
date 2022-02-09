@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     String city = user_field.getText().toString();
                     String key = "8555937a345ce05da2c113ac58df3251";
-                    String url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appiid=" + key + "&units=metrc&lang=ru";
+                    String url = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appiid=" + key + "&units=metric&lang=ru";
 
                     new GetURLdate().execute(url);
                 }
