@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            return "";
+            return null;
         }
         @SuppressLint("SetTextI18n")
         @Override
