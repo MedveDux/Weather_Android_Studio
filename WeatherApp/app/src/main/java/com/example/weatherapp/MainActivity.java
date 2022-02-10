@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     String city = user_field.getText().toString();
                     String key = "8555937a345ce05da2c113ac58df3251";
-                    String url = " https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + key + "&units=metric&lang=ru";
+                    String url = " https://api.openweathermap.org/data/2.5/weather?q=" + city  + "&appid=" + key + "&units=metric&lang=ru";
 
                     new GetURLdate().execute(url);
                 }
@@ -68,9 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 URL url = new URL(strings[0]);
+
                  connection = (HttpURLConnection) url.openConnection();
                  connection.connect();
+                 int StatusCode = connection.getResponseCode();
 
+                 if (StatusCode == 404) {
+                     result_info.setText("Ошибка");
+                     return "";
+                 }
                 InputStream stream = connection.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(stream));
 
@@ -95,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            return null;
+            return "";
         }
         @SuppressLint("SetTextI18n")
         @Override
@@ -104,9 +110,12 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 JSONObject jsonObject = new JSONObject(result);
-                result_info.setText("Температура: " + jsonObject.getJSONObject("main").getDouble("temp"));
+                result_info.setText("Температура: " + jsonObject.getJSONObject("main").getDouble("temp")
+                        + "\nОщущается: " + jsonObject.getJSONObject("main").getDouble("feels_like")
+                        + "\nВлажность: " + jsonObject.getJSONObject("main").getInt("humidity")
+                        + "\nПогода: " + jsonObject.getJSONArray("weather").getJSONObject(0).getString("description"));
             } catch (JSONException e) {
-                e.printStackTrace();
+                result_info.setText(e.toString());
             }
         }
     }
