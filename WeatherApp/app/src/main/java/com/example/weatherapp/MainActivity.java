@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         + "\nВлажность: " + jsonObject.getJSONObject("main").getInt("humidity")
                         + "\nПогода: " + jsonObject.getJSONArray("weather").getJSONObject(0).getString("description"));
             } catch (JSONException e) {
-                result_info.setText(e.toString());
+                e.printStackTrace();
             }
         }
     }
